@@ -308,7 +308,7 @@ module ApplicationHelper
     }
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # Admin view left hand navigation content
   def admin_links_for(community)
     links = [
@@ -406,6 +406,13 @@ module ApplicationHelper
         :name => "invite_people"
       },
       {
+        :topic => :manage,
+        :text => t("admin.communities.invitations.invitations"),
+        :icon_class => icon_class("invitations"),
+        :path => admin_community_invitations_path(@current_community),
+        :name => "invitations"
+      },
+      {
         :topic => :configure,
         :text => t("admin.communities.edit_details.community_details"),
         :icon_class => icon_class("details"),
@@ -435,6 +442,16 @@ module ApplicationHelper
         :icon_class => icon_class("topbar_menu"),
         :path => admin_topbar_edit_path,
         :name => "topbar"
+      }
+    ]
+
+    links += [
+      {
+        :topic => :configure,
+        :text => t("admin.communities.footer.footer"),
+        :icon_class => icon_class("footer_menu"),
+        :path => admin_footer_edit_path,
+        :name => "footer"
       }
     ]
 
@@ -533,7 +550,7 @@ module ApplicationHelper
 
     links
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # Settings view left hand navigation content
   def settings_links_for(person, community=nil)
@@ -765,6 +782,49 @@ module ApplicationHelper
 
   def regex_definition_to_js(string)
     string.gsub('\A', '^').gsub('\z', '$').gsub('\\', '\\\\')
+  end
+
+  SOCIAL_LINKS = {
+    facebook: {
+      name: "Facebook",
+      placeholder: "https://www.facebook.com/CHANGEME",
+    },
+    twitter: {
+      name: "Twitter",
+      placeholder: "https://www.twitter.com/CHANGEME",
+    },
+    instagram: {
+      name: "Instagram",
+      placeholder: "https://www.instagram.com/CHANGEME",
+    },
+    youtube: {
+      name: "YouTube",
+      placeholder: "https://www.youtube.com/channel/CHANGEME",
+    },
+    googleplus: {
+      name: "Google+",
+      placeholder: "https://plus.google.com/CHANGEME",
+    },
+    linkedin: {
+      name: "LinkedIn",
+      placeholder: "https://www.linkedin.com/company/CHANGEME",
+    },
+    pinterest: {
+      name: "Pinterest",
+      placeholder: "https://www.pinterest.com/CHANGEME",
+    },
+    soundcloud: {
+      name: "SoundCloud",
+      placeholder: "https://soundcloud.com/CHANGEME",
+    }
+  }.freeze
+
+  def social_link_name(provider)
+    SOCIAL_LINKS[provider.to_sym][:name]
+  end
+
+  def social_link_placeholder(provider)
+    SOCIAL_LINKS[provider.to_sym][:placeholder]
   end
 end
 # rubocop:enable Metrics/ModuleLength

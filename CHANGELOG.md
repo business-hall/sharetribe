@@ -10,7 +10,22 @@ This file follows the best practices from [keepachangelog.com](http://keepachang
 
 ### Added
 
+- Social media sharing specific image [#3455](https://github.com/sharetribe/sharetribe/pull/3455)
+- Edit reviews feature [#3422](https://github.com/sharetribe/sharetribe/pull/3422)
+- New user segment for sending e-mails to users: "User who are allowed to post listings" [#3461](https://github.com/sharetribe/sharetribe/pull/3461)
+- "Per unit" default pricing unit [#3462](https://github.com/sharetribe/sharetribe/pull/3462)
+- Japan as supported country for Stripe [#3472](https://github.com/sharetribe/sharetribe/pull/3472)
+- Puerto Rico as supported country for Stripe [#3474](https://github.com/sharetribe/sharetribe/pull/3474)
+- Possibility to hide slogan and description from the cover photo [#3477](https://github.com/sharetribe/sharetribe/pull/3477)
+- Transaction search and filter [#3484](https://github.com/sharetribe/sharetribe/pull/3484)
+- Listing search and filter [#3496](https://github.com/sharetribe/sharetribe/pull/3496)
+- Customizable footer for Pro subscriptions [#3374](https://github.com/sharetribe/sharetribe/pull/3374)
+- HSTS support [#3512](https://github.com/sharetribe/sharetribe/pull/3512)
+
 ### Changed
+- Make "Per unit" the default pricing unit for product marketplace [#3462](https://github.com/sharetribe/sharetribe/pull/3462)
+- Better messaging for closed marketplaces [#3465](https://github.com/sharetribe/sharetribe/pull/3465)
+- Allow 65 characters in the listing title [#3497](https://github.com/sharetribe/sharetribe/pull/3497)
 
 ### Deprecated
 
@@ -18,7 +33,18 @@ This file follows the best practices from [keepachangelog.com](http://keepachang
 
 ### Fixed
 
+- Bug in Hong Kong bank account form [#3456](https://github.com/sharetribe/sharetribe/pull/3456)
+- Bug in transaction agreement text [#3468](https://github.com/sharetribe/sharetribe/pull/3468)
+- Bug in availability per hour manager [#3467](https://github.com/sharetribe/sharetribe/pull/3467)
+- Layout for social media image [#3475](https://github.com/sharetribe/sharetribe/pull/3475)
+- Amazon Web service mail verification [#3471](https://github.com/sharetribe/sharetribe/pull/3471)
+- Number of users when searching in the admin panel [#3483](https://github.com/sharetribe/sharetribe/pull/3483)
+
 ### Security
+
+- Fix referrer issue [#3469](https://github.com/sharetribe/sharetribe/pull/3469)
+- Security dependencies update [#3470](https://github.com/sharetribe/sharetribe/pull/3470)
+- Dependency update [#3479](https://github.com/sharetribe/sharetribe/pull/3479)
 
 ## [7.4.0] - 2018-10-09
 
@@ -59,6 +85,7 @@ This file follows the best practices from [keepachangelog.com](http://keepachang
 - Requester name in waiting for confirmation messages in the inbox [#3357](https://github.com/sharetribe/sharetribe/pull/3357)
 - Fixed bug in Hungarian Forint minimum transaction size [#3366](https://github.com/sharetribe/sharetribe/pull/3366)
 - Stripe fee information in listing page [#3384](https://github.com/sharetribe/sharetribe/pull/3384)
+- Fixed displaying design page [#3451](https://github.com/sharetribe/sharetribe/pull/3451)
 - Display bug in checkbox user fields [#3385](https://github.com/sharetribe/sharetribe/pull/3385)
 - Fixed a broken link when no date was selected for free "per day" and "per night" listings [#3410](https://github.com/sharetribe/sharetribe/pull/3410)
 - Allow to leave dropdown option unselected if it is not mandatory [#3446](https://github.com/sharetribe/sharetribe/pull/3446)

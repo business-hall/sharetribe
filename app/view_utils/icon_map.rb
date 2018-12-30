@@ -161,6 +161,8 @@ ICON_MAP = {
       "topbar_menu" => "ss-signpost",
       "user_edit" => "ss-userprofile",
       "picture" => "ss-picture",
+      "footer_menu" => "ss-downloadbox",
+      "invitations" => "ss-users",
     },
     "font-awesome" => {
       "map" => "icon-map-marker",
@@ -272,5 +274,7 @@ ICON_MAP = {
       "check" => "icon-ok",
       "user_edit" => "icon-user",
       "picture" => "icon-picture",
+      "footer_menu" => "icon-download-alt",
+      "invitations" => "icon-random",
     }
   }
