@@ -62,9 +62,9 @@ Rails.application.configure do
       Readthis.fault_tolerant = true
       [:readthis_store, {
          redis: { host: ENV["redis_host"],
-                  port: ENV["redis_port"],
+                  port: ENV["redis_port"] || 6379,
                   driver: :hiredis},
-         db: ENV["redis_db"],
+         db: ENV["redis_db"] || 0,
          namespace: "cache",
          expires_in: ENV["redis_expires_in"] || 240 # default, 4 hours in minutes
        }]

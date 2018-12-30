@@ -23,7 +23,7 @@ RUN set -ex \
     C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
     56730D5401028683275BD23C23EFEFE93C4CFFFE \
   ; do \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" || \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" || \
     gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
     gpg --keyserver keyserver.pgp.com --recv-keys "$key" ; \
   done
@@ -44,7 +44,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 #
 
 # Install nginx - used to serve maintenance mode page
-RUN apt-get install -y nginx
+RUN apt-get install -y nginx mysql-client memcached
 
 # Install latest bundler
 ENV BUNDLE_BIN=
@@ -60,14 +60,17 @@ COPY Gemfile /opt/app
 COPY Gemfile.lock /opt/app
 
 ENV RAILS_ENV production
+#ENV RAILS_ENV development
 
 USER app
 
-RUN bundle install --deployment --without test,development
+#RUN bundle install --deployment --without test,development
+RUN bundle install --deployment
 
 COPY package.json /opt/app/
 COPY client/package.json /opt/app/client/
 COPY client/customloaders/customfileloader /opt/app/client/customloaders/customfileloader
+COPY config/database.yml /opt/app/config/
 
 ENV NODE_ENV production
 ENV NPM_CONFIG_LOGLEVEL error

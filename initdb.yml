@@ -10,41 +10,35 @@ db:
     MYSQL_DATABASE: sharetribe_production
     MYSQL_ROOT_PASSWORD: secret
 
-redis:
-  image: redis:latest
-  ports:
-    - "6379:6379"
-  volumes:
-    - "./redis:/data"
-
 worker:
   build: .
   command: '/bin/bash -l -c "bundle exec rake jobs:work"'
   links:
     - db:mysql
-    - redis:redis
+  volumes:
+    - .:/opt/sharetribe
+
+migrate:
+  build: .
+  command: '/bin/bash -l -c "bundle exec rake db:create db:structure:load"'
+  links:
+    - db:mysql
   volumes:
     - .:/opt/sharetribe
   environment:
-    QUEUES: default,paperclip,mailers
-    MAGICK_MAP_LIMIT: 64MiB
-    MAGICK_MEMORY_LIMIT: 256MiB
-    MAGICK_TIME_LIMIT: 30
-    redis_host: redis
+    DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
 
 search:
   build: .
   command: '/bin/bash -l -c "bundle exec rake ts:configure ts:index; searchd --nodetach --pidfile --config config/development.sphinx.conf"'
   links:
     - db:mysql
-    - redis:redis
   volumes:
     - .:/opt/sharetribe
   ports:
     - "3563:3563"
   environment:
     SPHINX_HOST: ""
-    redis_host: redis
 
 web:
   build: .
@@ -57,8 +51,6 @@ web:
     - db:mysql
     - search:search
     - worker:worker
-    - redis:redis
   environment:
     SPHINX_HOST: search
-    redis_host: redis
 
