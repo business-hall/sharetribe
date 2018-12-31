@@ -1,0 +1,22 @@
+db:
+  image: mysql:5.7
+  ports:
+    - "3306:3306"
+  volumes:
+    - "./mysql:/var/lib/mysql"
+  environment:
+    MYSQL_USER: sharetribe
+    MYSQL_PASSWORD: secret
+    MYSQL_DATABASE: sharetribe_production
+    MYSQL_ROOT_PASSWORD: secret
+
+init:
+  build: .
+  command: '/bin/bash -l -c "bundle exec rake db:create db:structure:load"'
+  links:
+    - db:mysql
+  volumes:
+    - .:/opt/sharetribe
+  environment:
+    DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
+

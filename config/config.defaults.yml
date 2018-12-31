@@ -4,7 +4,7 @@ default: &default_settings
   # If you are running on localhost, you can write here "lvh.me:3000" (which redirects to localhost port 3000)
   # The community subdomains will be added to this top domain.
   # NOTE: Do not include http(s) here, or subdomains, just the top level domain, like "sharetribe.com" for example
-  domain: "lvh.me:3000"
+  domain: "ecomm.codefusion.cf:3000"
 
   # A comma separated string of trusted proxies. If you host your
   # application behind proxies this configuration allows
@@ -488,6 +488,7 @@ production: &production_settings
 
   eager_load: true
 
+  skip_email_confirmation: true
   log_level: INFO
   stripe_private_key_pattern: "\\Ask_live_.{24}\\z"
   stripe_publishable_key_pattern: "\\Apk_live_.{24}\\z"

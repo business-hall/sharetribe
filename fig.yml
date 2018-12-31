@@ -3,7 +3,7 @@ db:
   ports:
     - "3306:3306"
   volumes:
-    - "./mysql:/var/lib/mysql"
+    - "./data/mysql:/var/lib/mysql"
   environment:
     MYSQL_USER: sharetribe
     MYSQL_PASSWORD: secret
@@ -15,7 +15,7 @@ redis:
   ports:
     - "6379:6379"
   volumes:
-    - "./redis:/data"
+    - "./data/redis:/data"
 
 worker:
   build: .
@@ -25,6 +25,7 @@ worker:
     - redis:redis
   volumes:
     - .:/opt/sharetribe
+    - ./data/sharetribe/public/system/images:/opt/app/public/system/images
   environment:
     QUEUES: default,paperclip,mailers
     MAGICK_MAP_LIMIT: 64MiB
@@ -51,6 +52,7 @@ web:
   command: '/bin/bash -l -c "bundle exec rails server"'
   volumes:
      - .:/opt/sharetribe
+     - ./data/sharetribe/public/system/images:/opt/app/public/system/images
   ports:
     - "3000:3000"
   links:
