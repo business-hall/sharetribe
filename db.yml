@@ -3,7 +3,7 @@ db:
   ports:
     - "3306:3306"
   volumes:
-    - "./mysql:/var/lib/mysql"
+    - "./data/mysql:/var/lib/mysql"
   environment:
     MYSQL_USER: sharetribe
     MYSQL_PASSWORD: secret

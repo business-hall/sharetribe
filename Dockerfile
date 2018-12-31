@@ -5,7 +5,8 @@ MAINTAINER Sharetribe Team <team@sharetribe.com>
 ENV REFRESHED_AT 2016-11-08
 
 RUN apt-get update \
-    && apt-get dist-upgrade -y
+    && apt-get dist-upgrade -y \
+    && apt-get install -y software-properties-common apt-utils
 
 #
 # Node (based on official docker node image)
@@ -50,9 +51,13 @@ RUN curl -sfSL \
 #
 # Sharetribe
 #
+# RUN add-apt-repository ppa:builds/sphinxsearch-rel22 && apt-get update && apt-get dist-upgrade -y
+RUN wget http://sphinxsearch.com/files/sphinxsearch_2.2.11-release-1~jessie_amd64.deb \
+  && apt-get install -y libodbc1 \
+  && dpkg -i sphinxsearch_2.2.11-release-1~jessie_amd64.deb
 
 # Install nginx - used to serve maintenance mode page
-RUN apt-get install -y nginx mysql-client memcached
+RUN apt-get install -y nginx mysql-client
 
 # Install latest bundler
 ENV BUNDLE_BIN=
@@ -108,7 +113,8 @@ RUN mkdir -p \
        app/assets/webpack \
        client/app/ \
        public/assets \
-       public/webpack
+       public/webpack \
+    && chown app:app /opt/app/config/production.sphinx.conf
 USER app
 
 # If assets.tar.gz file exists in project root
