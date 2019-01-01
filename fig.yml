@@ -26,6 +26,7 @@ worker:
   volumes:
     - .:/opt/sharetribe
     - ./data/sharetribe/public/system/images:/opt/app/public/system/images
+    - ./data/sphinx:/opt/app/db/sphinx
   environment:
     QUEUES: default,paperclip,mailers
     MAGICK_MAP_LIMIT: 64MiB
@@ -55,7 +56,7 @@ web:
      - .:/opt/sharetribe
      - ./data/sharetribe/public/system/images:/opt/app/public/system/images
   ports:
-    - "3000:3000"
+    - "80:3000"
   links:
     - db:mysql
     - search:search
