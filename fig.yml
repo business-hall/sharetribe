@@ -19,10 +19,12 @@ redis:
 
 worker:
   build: .
+#  command: '/bin/bash -l -c "bundle exec rake ts:configure ts:index; bundle exec rake jobs:work"'
   command: '/bin/bash -l -c "bundle exec rake jobs:work"'
   links:
     - db:mysql
     - redis:redis
+    - search:search
   volumes:
     - .:/opt/sharetribe
     - ./data/sharetribe/public/system/images:/opt/app/public/system/images
@@ -33,10 +35,11 @@ worker:
     MAGICK_MEMORY_LIMIT: 256MiB
     MAGICK_TIME_LIMIT: 30
     redis_host: redis
+    SPHINX_HOST: search
 
 search:
   build: .
-  command: '/bin/bash -l -c "bundle exec rake ts:configure ts:index; searchd --nodetach --pidfile --config config/production.sphinx.conf"'
+  command: '/bin/bash -l -c "bundle exec rake ts:configure ts:index; searchd --nodetach --pidfile --config /opt/app/db/sphinx/sphinx.conf"'
   links:
     - db:mysql
     - redis:redis
@@ -44,9 +47,8 @@ search:
     - .:/opt/sharetribe
     - ./data/sphinx:/opt/app/db/sphinx
   ports:
-    - "3563:3563"
+    - "3564:3564"
   environment:
-    SPHINX_HOST: ""
     redis_host: redis
 
 web:
@@ -55,6 +57,7 @@ web:
   volumes:
      - .:/opt/sharetribe
      - ./data/sharetribe/public/system/images:/opt/app/public/system/images
+     - ./data/sharetribe/public/system/paypal:/opt/app/public/system/paypal
   ports:
     - "80:3000"
   links:
