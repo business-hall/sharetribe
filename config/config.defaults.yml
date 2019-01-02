@@ -4,7 +4,7 @@ default: &default_settings
   # If you are running on localhost, you can write here "lvh.me:3000" (which redirects to localhost port 3000)
   # The community subdomains will be added to this top domain.
   # NOTE: Do not include http(s) here, or subdomains, just the top level domain, like "sharetribe.com" for example
-  domain: "ecomm.codefusion.cf:3000"
+  domain: "ecomm.codefusion.cf"
 
   # A comma separated string of trusted proxies. If you host your
   # application behind proxies this configuration allows
@@ -135,13 +135,13 @@ default: &default_settings
   paypal_ipn_protocol: https
 
   # PayPal implementation, either "real" or "fake"
-  paypal_implementation: real
+  paypal_implementation: fake
 
   # If "fake" implementation is used, specify the file where PayPal information
   # is saved
   # Examples: 'tmp/dev_fakepal.store'
   #           'tmp/test_fakepal.store'
-  fakepal_store:
+  fakepal_store: /opt/app/public/system/paypal/fakepal.store
 
   # If you want to force all use to be SSL secured (https://) you can set this to true
   # Note that you can set this value separately to each enironment below (e.g. if your developing)
@@ -174,19 +174,19 @@ default: &default_settings
   # If using SMTP, uncomment corresponding lines and enter your information.
   # the SMPT lines below contain example of using Gmail, but you can use any SMTP
   # For the domain part you can enter HELO domain, if needed. Google for more info. :)
-  mail_delivery_method: sendmail
+  mail_delivery_method: smtp
 
-  # smtp_email_address: "smtp.gmail.com"
-  # smtp_email_port: 587
-  # smtp_email_user_name: "<YOUR_GMAIL_USERNAME>@gmail.com"
-  # smtp_email_password: "<YOUR_GMAIL_PASSWORD>"
-  # smtp_email_domain: "localhost"
+  smtp_email_address: "smtp.sendgrid.net"
+  smtp_email_port: 587
+  smtp_email_user_name: "apikey"
+  smtp_email_password: 
+  smtp_email_domain: "sendgrid.net"
 
   # This will be the from field in the mails sent from Sharetribe
-  sharetribe_mail_from_address: "your-team@example.com"
+  sharetribe_mail_from_address: "admin@ecomm.codefusion.cf"
 
   # The address where the notifications of feedbacks from Sharetribe UI are sent
-  feedback_mailer_recipients:  'admins@example.com'
+  feedback_mailer_recipients:  'admin@ecomm.codefusion.cf'
 
   grid_listings_limit: 24
   map_listings_limit: 150
@@ -288,10 +288,10 @@ default: &default_settings
 
   # Email addresses for sales & support. Will be shown to the administrator.
   sales_email: hello@example.com
-  support_email: support@example.com
+  support_email: support@ecomm.codefusion.cf
 
   # Knowledge base
-  knowledge_base_url: http://www.example.com/knowledgebase
+  knowledge_base_url: http://ecomm.codefusion.cf
   display_knowledge_base_articles: false
 
   # External plan service connection
@@ -356,7 +356,7 @@ default: &default_settings
 
   # Default Google Maps API key for communities that don't specify one
   # Default is not to use Google Maps API key
-  google_maps_key: <your key here>
+  google_maps_key: 
 
 
   # Path or URL for landing page assets.
@@ -521,9 +521,6 @@ development:
   use_i18n_js_middleware: true
 
   use_js_routes_middleware: true
-
-  paypal_implementation: real
-  fakepal_store: 'tmp/dev_fakepal.store'
 
 test:
   <<: *default_settings
