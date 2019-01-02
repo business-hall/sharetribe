@@ -67,7 +67,8 @@ module TransactionService::AvailableCurrencies
       "SI" => "EUR",
       "ES" => "EUR",
       "VA" => "EUR",
-      "US" => "USD"
+      "US" => "USD",
+      "NG" => "NGN"
   }
   OLD_CURRENCY_SET = SortedSet.new(["USD"].concat(COUNTRY_CURRENCIES.values))
 

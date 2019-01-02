@@ -39,7 +39,7 @@ worker:
 
 search:
   build: .
-  command: '/bin/bash -l -c "bundle exec rake ts:configure ts:index; searchd --nodetach --pidfile --config /opt/app/db/sphinx/sphinx.conf"'
+  command: '/bin/bash -l -c "bundle exec rake ts:configure ts:index; searchd --nodetach --console --pidfile --config /opt/app/db/sphinx/sphinx.conf"'
   links:
     - db:mysql
     - redis:redis
