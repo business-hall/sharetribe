@@ -1,0 +1,39 @@
+version: "2"
+services:
+  db:
+    image: mysql:5.7
+    ports:
+    - "3306:3306"
+    volumes:
+    - "./data/mysql:/var/lib/mysql"
+    environment:
+      MYSQL_USER: sharetribe
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: sharetribe_production
+      MYSQL_ROOT_PASSWORD: secret
+
+  redis:
+    image: redis:latest
+    ports:
+    - "6379:6379"
+    volumes:
+    - "./data/redis:/data"
+
+  sphinx:
+    image: sphinx:0.1
+    build:
+      context: ./docker/sphinx
+      dockerfile: Dockerfile.sphinx
+    ports:
+      - "9312:9312"
+      - "9001:9001"      
+    volumes:
+      - ./data/sphinx/usr/local/etc:/usr/local/etc
+      - ./data/sphinx/opt/app:/opt/app
+    links:
+      - db:mysql
+    depends_on:
+      - db
+
+    
+
