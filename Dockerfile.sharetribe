@@ -114,8 +114,8 @@ RUN mkdir -p \
        app/assets/webpack \
        client/app/ \
        public/assets \
-       public/webpack \
-    && chown app:app /opt/app/config/production.sphinx.conf
+       public/webpack
+       
 USER app
 
 # If assets.tar.gz file exists in project root
@@ -125,5 +125,10 @@ USER app
 RUN script/prepare-assets.sh
 
 USER root
+
+RUN sed -e "s/#cron/cron/g" < /etc/rsyslog.conf > /etc/rsyslog.conf \  
+ && echo "*/1 * * * * indexer --config /sharetribe/sphinx/production/sphinx.conf --all --verbose --rotate" | crontab - \
+ && touch /var/log/cron.log && chown root:adm /var/log/cron.log && chmod 0640 /var/log/cron.log
+ 
 CMD ["/usr/bin/supervisord", "--configuration", "/etc/supervisord.conf"]
-ENTRYPOINT ["/bin/bash", "script/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/opt/app/script/entrypoint.sh"]
