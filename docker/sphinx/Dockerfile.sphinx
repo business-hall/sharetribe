@@ -1,0 +1,16 @@
+FROM ubuntu:latest
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+  && apt-get dist-upgrade -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get install sphinxsearch \
+  lsb-release apt-utils software-properties-common cron \
+  supervisor postfix rsyslog \
+  -y
+  
+ADD files /
+RUN sed -e "s/#cron/cron/g" < /etc/rsyslog.d/50-default.conf > /etc/rsyslog.d/50-default.conf \  
+ && echo "*/10 * * * * indexer --config /usr/local/etc/sphinx.conf --all --verbose --rotate" | crontab -
+
+ENTRYPOINT ["sh", "/entrypoint.sh"]
+
+  
