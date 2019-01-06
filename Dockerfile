@@ -113,8 +113,7 @@ RUN mkdir -p \
        app/assets/webpack \
        client/app/ \
        public/assets \
-       public/webpack \
-    && chown app:app /opt/app/config/production.sphinx.conf
+       public/webpack
 USER app
 
 # If assets.tar.gz file exists in project root
