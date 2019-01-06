@@ -12,6 +12,20 @@ services:
       MYSQL_DATABASE: sharetribe_production
       MYSQL_ROOT_PASSWORD: secret
 
+  dbinit:
+    build:
+      context: .
+      dockerfile: Dockerfile.sharetribe
+    command: '/bin/bash -l -c "bundle exec rake db:create db:structure:load"'
+    links:
+      - db:mysql
+    depends_on:
+      - db
+    volumes:
+      - .:/opt/sharetribe
+    environment:
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
+
   redis:
     image: redis:latest
     ports:
@@ -23,10 +37,10 @@ services:
     image: sphinx:0.1
     build:
       context: ./docker/sphinx
-      dockerfile: Dockerfile.sphinx
+      dockerfile: Dockerfile
     ports:
-      - "9312:9312"
-      - "9001:9001"      
+      - "3564:3564"
+      - "9001:9001"
     volumes:
       - ./data/sphinx/usr/local/etc:/usr/local/etc
       - ./data/sphinx/opt/app:/opt/app
@@ -34,6 +48,44 @@ services:
       - db:mysql
     depends_on:
       - db
-
-    
-
+      
+  gensphinxcfg:
+    build:
+      context: ./docker/sharetribe
+      dockerfile: Dockerfile
+    command: '/bin/bash -l -c "bundle exec rake ts:configure"'
+    links:
+      - db:mysql
+    depends_on:
+      - db
+    volumes:
+      - .:/opt/sharetribe
+      - ./data/sphinx/usr/local/etc:/opt/app/db/sphinx
+      
+  sharetribe:
+    image: sharetribe:0.1
+    build:
+      context: .
+      dockerfile: Dockerfile.sharetribe
+    links:
+      - db:mysql
+      - redis:redis
+      - sphinx:sphinx
+    volumes:
+      - .:/opt/sharetribe
+      - ./data/sharetribe/public/system/images:/opt/app/public/system/images
+      - ./data/sharetribe/public/system/paypal:/opt/app/public/system/paypal
+    depends_on:
+      - db
+      - redis
+      - sphinx
+    ports:
+      - "9002:9002"
+      - "80:3000"
+    environment:
+      QUEUES: default,paperclip,mailers
+      MAGICK_MAP_LIMIT: 64MiB
+      MAGICK_MEMORY_LIMIT: 256MiB
+      MAGICK_TIME_LIMIT: 30
+      redis_host: redis
+      SPHINX_HOST: sphinx
