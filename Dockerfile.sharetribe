@@ -57,7 +57,7 @@ RUN wget http://sphinxsearch.com/files/sphinxsearch_2.2.11-release-1~jessie_amd6
   && dpkg -i sphinxsearch_2.2.11-release-1~jessie_amd64.deb
 
 # Install nginx - used to serve maintenance mode page
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx mysql-client cron \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client cron \
   supervisor postfix rsyslog
 
 # Install latest bundler
@@ -129,6 +129,15 @@ USER root
 RUN sed -e "s/#cron/cron/g" < /etc/rsyslog.conf > /etc/rsyslog.conf \  
  && echo "*/1 * * * * indexer --config /sharetribe/sphinx/production/sphinx.conf --all --verbose --rotate" | crontab - \
  && touch /var/log/cron.log && chown root:adm /var/log/cron.log && chmod 0640 /var/log/cron.log
+ 
+RUN apt-get install -y dirmngr gnupg \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
+    && apt-get install -y apt-transport-https ca-certificates \
+    && sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main > /etc/apt/sources.list.d/passenger.list' \
+    && apt-get update && apt-get install -y nginx-extras passenger
+    
+RUN sed -e "s/# include \/etc\/nginx\/passenger/include \/etc\/nginx\/passenger/g" < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf
+
  
 CMD ["/usr/bin/supervisord", "--configuration", "/etc/supervisord.conf"]
 ENTRYPOINT ["/bin/bash", "/opt/app/script/entrypoint.sh"]
