@@ -38,4 +38,8 @@ server {
 
     resolver 8.8.8.8 8.8.4.4 valid=300s;
     resolver_timeout 5s;
+
+    root /opt/app/public;
+    passenger_enabled on;
+    passenger_ruby /usr/local/bin/ruby
 }

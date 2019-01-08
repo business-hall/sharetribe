@@ -74,12 +74,10 @@ COPY Gemfile /opt/app
 COPY Gemfile.lock /opt/app
 
 ENV RAILS_ENV production
-#ENV RAILS_ENV development
 
 USER app
 
-#RUN bundle install --deployment --without test,development
-RUN bundle install --deployment
+RUN bundle install --deployment --without test,development
 
 COPY package.json /opt/app/
 COPY client/package.json /opt/app/client/
@@ -105,16 +103,9 @@ ADD ./docker/sharetribe/files /sharetribe
 
 # Fix ownership of directories that need to be writable
 USER root
-RUN mkdir -p \
-          app/assets/webpack \
-          public/assets \
-          public/webpack \
-    && chown -R app:app \
-       app/assets/javascripts \
-       app/assets/webpack \
-       client/app/ \
-       public/assets \
-       public/webpack
+RUN mkdir -p app/assets/webpack public/assets public/webpack \
+    && chown -R app:app app/assets/javascripts app/assets/webpack \
+       client/app/ public/assets public/webpack
        
 USER app
 
@@ -140,7 +131,8 @@ RUN sed \
     -e "s/# include \/etc\/nginx\/passenger/include \/etc\/nginx\/passenger/g" \
     -e "s/include \/etc\/nginx\/sites\-enabled\/\*\;/include \/etc\/nginx\/sites\-enabled\/\*\.site\;/g" \
     < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf \
-    && cp /sharetribe/etc/nginx-ssl.site /etc/nginx/sites-enabled/nginx-ssl.site
- 
+    && cp /sharetribe/etc/nginx-ssl.site /etc/nginx/sites-enabled/nginx-ssl.site \
+    && if [ ! -f /etc/nginx/modules-enabled/50-mod-http-passenger.conf ]; then ln -s /usr/share/nginx/modules-available/mod-http-passenger.load /etc/nginx/modules-enabled/50-mod-http-passenger.conf ; fi
+
 CMD ["/usr/bin/supervisord", "--configuration", "/sharetribe/etc/supervisord.conf"]
 ENTRYPOINT ["/bin/bash", "/opt/app/script/entrypoint.sh"]
