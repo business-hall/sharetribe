@@ -9,9 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
     
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https ca-certificates \
-    && apt-get install -y dirmngr gnupg nodejs && ln -sf /usr/bin/nodejs /usr/local/bin/node
-    
-RUN useradd -ms /bin/bash app
+    && apt-get install -y dirmngr gnupg nodejs git npm imagemagick libmysqlclient-dev && ln -sf /usr/bin/nodejs /usr/local/bin/node
     
 RUN DEBIAN_FRONTEND=noninteractive curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
     && curl -sSL https://rvm.io/pkuczynski.asc | gpg --import - \
@@ -24,25 +22,36 @@ RUN DEBIAN_FRONTEND=noninteractive usermod -a -G rvm `whoami` \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y nginx libnginx-mod-http-passenger mysql-client cron supervisor postfix rsyslog \
     && if [ ! -f /etc/nginx/modules-enabled/50-mod-http-passenger.conf ]; then cp /usr/share/nginx/modules-available/mod-http-passenger.load /etc/nginx/modules-enabled/50-mod-http-passenger.conf ; fi
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim sphinxsearch
+
+RUN sed -e "s/#cron/cron/g" < /etc/rsyslog.conf > /etc/rsyslog.conf \  
+ && echo "*/1 * * * * indexer --config /extvol/sphinx/production/sphinx.conf --all --verbose --rotate" | crontab - \
+ && touch /var/log/cron.log && chown root:adm /var/log/cron.log && chmod 0640 /var/log/cron.log
+
 COPY . /opt/app
 WORKDIR /opt/app
 ENV NODE_ENV production
 ENV NPM_CONFIG_LOGLEVEL error
 ENV NPM_CONFIG_PRODUCTION true
 ENV RAILS_ENV production
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git npm libmysqlclient-dev \
-    && /bin/bash -l -c ". /etc/profile.d/rvm.sh && bundle install --deployment --without test development" \
-    && /bin/bash -l -c ". /etc/profile.d/rvm.sh && npm install"
-
-
-
-ADD ./docker/sharetribe/files /sharetribe
-RUN chmod +x /sharetribe/entrypoint.sh
 ENV TINI_VERSION v0.18.0
+
+RUN DEBIAN_FRONTEND=noninteractive \
+    /bin/bash -l -c ". /etc/profile.d/rvm.sh && bundle install --without test development && npm install -g npm@6.5.0 && npm install --unsafe-perm"
+    
+ADD ./docker/sharetribe/files /sharetribe
+RUN sed \
+    -e "s/include \/etc\/nginx\/sites\-enabled\/\*\;/include \/etc\/nginx\/sites\-enabled\/\*\.site\;/g" \
+    < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf \
+    && cp /sharetribe/etc/nginx-ssl.site /etc/nginx/sites-enabled/nginx-ssl.site    
+
+RUN chmod +x /sharetribe/entrypoint.sh
+
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
+RUN mkdir -p app/assets/webpack public/assets public/webpack \
+    && /bin/bash -l -c ". /etc/profile.d/rvm.sh && script/prepare-assets.sh"
 
-ENTRYPOINT ["/tini", "-s"]
-CMD ["/bin/bash", "--", "-l", "-c", "/sharetribe/entrypoint.sh"]
+ENTRYPOINT ["/tini", "-s", "/bin/bash", "--", "-c", "/sharetribe/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "--configuration",  "/sharetribe/etc/supervisord.conf"]

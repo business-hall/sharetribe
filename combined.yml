@@ -41,7 +41,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./data:/sharetribe/data
+      - ./data:/extvol
       
   sharetribe:
     image: sharetribe:0.1
@@ -52,9 +52,7 @@ services:
       - db:mysql
       - redis:redis
     volumes:
-      - ./data:/sharetribe/data
-      - ./data/sharetribe/public/system/images:/opt/app/public/system/images
-      - ./data/sharetribe/public/system/paypal:/opt/app/public/system/paypal
+      - ./data:/extvol
     depends_on:
       - db
       - redis

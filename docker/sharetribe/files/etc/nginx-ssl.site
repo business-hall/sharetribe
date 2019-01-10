@@ -9,6 +9,7 @@ server {
 server {
     listen 8443 ssl http2;
     listen [::]:8443 ssl http2;
+    server_name ecomm.codefusion.cf;
 
     # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
     ssl_certificate /sharetribe/etc/ssl-certs/certificate.crt;
@@ -41,5 +42,5 @@ server {
 
     root /opt/app/public;
     passenger_enabled on;
-    passenger_ruby /usr/local/bin/ruby
+
 }

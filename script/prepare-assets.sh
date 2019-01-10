@@ -15,5 +15,5 @@ else
     secret_key_base=$(ruby -r securerandom -e "puts SecureRandom.hex(64)")
     export secret_key_base
 
-    bundle exec rake assets:precompile
+    bundle exec rake assets:precompile RAILS_ENV=production
 fi
