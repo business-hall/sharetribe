@@ -1,3 +1,2 @@
 source /etc/profile.d/rvm.sh
-set -e
-exec "$@"
+/usr/bin/supervisord --configuration /sharetribe/etc/supervisord.conf

@@ -12,36 +12,12 @@ services:
       MYSQL_DATABASE: sharetribe_production
       MYSQL_ROOT_PASSWORD: secret
 
-  dbinit:
-    build:
-      context: .
-      dockerfile: Dockerfile.sharetribe
-    command: '/bin/bash -l -c "bundle exec rake db:create db:structure:load"'
-    links:
-      - db:mysql
-    depends_on:
-      - db
-    environment:
-      DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
-
   redis:
     image: redis:latest
     ports:
     - "6379:6379"
     volumes:
     - "./data/redis:/data"
-      
-  gensphinxcfg:
-    build:
-      context: .
-      dockerfile: Dockerfile.sharetribe
-    command: 'bundle exec rake ts:configure'
-    links:
-      - db:mysql
-    depends_on:
-      - db
-    volumes:
-      - ./data:/extvol
       
   sharetribe:
     image: sharetribe:0.1
@@ -52,7 +28,7 @@ services:
       - db:mysql
       - redis:redis
     volumes:
-      - ./data:/extvol
+      - "./data:/extvol"
     depends_on:
       - db
       - redis

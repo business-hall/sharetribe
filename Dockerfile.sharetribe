@@ -35,6 +35,8 @@ ENV NPM_CONFIG_LOGLEVEL error
 ENV NPM_CONFIG_PRODUCTION true
 ENV RAILS_ENV production
 ENV TINI_VERSION v0.18.0
+ENV PASSENGER_DOWNLOAD_NATIVE_SUPPORT_BINARY 0
+ENV NEW_RELIC_AGENT_ENABLED false
 
 RUN DEBIAN_FRONTEND=noninteractive \
     /bin/bash -l -c ". /etc/profile.d/rvm.sh && bundle install --without test development && npm install -g npm@6.5.0 && npm install --unsafe-perm"
@@ -53,5 +55,6 @@ RUN chmod +x /tini
 RUN mkdir -p app/assets/webpack public/assets public/webpack \
     && /bin/bash -l -c ". /etc/profile.d/rvm.sh && script/prepare-assets.sh"
 
-ENTRYPOINT ["/tini", "-s", "/bin/bash", "--", "-c", "/sharetribe/entrypoint.sh"]
-CMD ["/usr/bin/supervisord", "--configuration",  "/sharetribe/etc/supervisord.conf"]
+ENTRYPOINT ["/tini", "-s", "--"]
+CMD ["/bin/bash", "-c", "/sharetribe/entrypoint.sh"]
+
