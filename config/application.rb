@@ -168,7 +168,7 @@ module Kassi
 
     # Configure Paperclip
     paperclip_options = {
-          :path => "/extvol/sharetribe/public/system/:attachment/:id/:style/:filename",
+          :path => "/opt/app/public/system/:attachment/:id/:style/:filename",
           :url => "/system/:attachment/:id/:style/:filename"
     }
 

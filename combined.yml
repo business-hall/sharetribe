@@ -29,6 +29,7 @@ services:
       - redis:redis
     volumes:
       - "./data:/extvol"
+      - "./data/sharetribe/public:/opt/app/public"
     depends_on:
       - db
       - redis

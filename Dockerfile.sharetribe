@@ -53,7 +53,8 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
 RUN mkdir -p app/assets/webpack public/assets public/webpack \
-    && /bin/bash -l -c ". /etc/profile.d/rvm.sh && script/prepare-assets.sh"
+    && /bin/bash -l -c ". /etc/profile.d/rvm.sh && script/prepare-assets.sh" \
+    && mv public private
 
 ENTRYPOINT ["/tini", "-s", "--"]
 CMD ["/bin/bash", "-c", "/sharetribe/entrypoint.sh"]
