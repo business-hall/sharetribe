@@ -274,6 +274,7 @@ CREATE TABLE `communities` (
   `footer_theme` int(11) DEFAULT '0',
   `footer_copyright` text,
   `footer_enabled` tinyint(1) DEFAULT '0',
+  `logo_link` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_communities_on_uuid` (`uuid`),
   KEY `index_communities_on_domain` (`domain`) USING BTREE,
@@ -849,6 +850,9 @@ CREATE TABLE `marketplace_configurations` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `limit_search_distance` tinyint(1) NOT NULL DEFAULT '1',
+  `display_about_menu` tinyint(1) NOT NULL DEFAULT '1',
+  `display_contact_menu` tinyint(1) NOT NULL DEFAULT '1',
+  `display_invite_menu` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `index_marketplace_configurations_on_community_id` (`community_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2325,5 +2329,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20181012065625'),
 ('20181024094615'),
 ('20181106212306'),
-('20181211125306');
+('20181211125306'),
+('20190104083132'),
+('20181219090801');
 
