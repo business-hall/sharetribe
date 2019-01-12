@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 ruby '2.3.4'
 
 gem 'rails', '5.1.6.1'
-
+gem 'rake', '11.3.0'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'uglifier', '~> 3.2.0'
 
