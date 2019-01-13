@@ -38,6 +38,7 @@ RUN sed -e "s/#cron/cron/g" < /etc/rsyslog.conf > /etc/rsyslog.conf \
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
+
 COPY ./client/customloaders/customfileloader/package.json /opt/app/client/customloaders/customfileloader/package.json
 COPY ./client/package.json /opt/app/client/package.json
 COPY ./vendor/assets/javascripts/regenerator-runtime/package.json /opt/app/vendor/assets/javascripts/regenerator-runtime/package.json
@@ -45,13 +46,17 @@ COPY ./package.json /opt/app/package.json
 COPY ./Gemfile /opt/app/Gemfile
 COPY ./Gemfile.lock /opt/app/Gemfile.lock
 
+#RUN useradd -m -s /bin/bash app \
+#    && mkdir /opt/app /opt/app/client /opt/app/log /opt/app/tmp \
+#    && chown -R app:app /opt/app
+
+#USER app
 WORKDIR /opt/app
 
 RUN DEBIAN_FRONTEND=noninteractive \
     /bin/bash -l -c ". /etc/profile.d/rvm.sh && bundle install --without test development && npm install -g npm@6.5.0 && npm install --unsafe-perm"
 
 COPY . /opt/app
-
 
 RUN ln -s /opt/app/docker/sharetribe/files /sharetribe \
     && chmod +x /sharetribe/entrypoint.sh \
@@ -62,6 +67,8 @@ RUN ln -s /opt/app/docker/sharetribe/files /sharetribe \
 RUN mkdir -p app/assets/webpack public/assets public/webpack \
     && /bin/bash -l -c ". /etc/profile.d/rvm.sh && script/prepare-assets.sh" \
     && mv public private
+
+#USER root
 
 ENTRYPOINT ["/tini", "-s", "--"]
 CMD ["/bin/bash", "-c", "/sharetribe/entrypoint.sh"]
