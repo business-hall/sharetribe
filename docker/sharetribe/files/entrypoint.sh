@@ -25,16 +25,18 @@ extPubDir=/extvol/sharetribe/public
 intPubDir=/opt/app/public
 builtPubDir=/opt/app/private
 if test ! -d ${extPubDir}/system/paypal; then
-  echo "Public dir ${extPubDir} uninitialized. Fixing .."
+  echo "Init ${extPubDir}/system/paypal uninitialized"
+  mkdir -p ${extPubDir}/system/paypal
+  cp -R ${builtPubDir}/* ${extPubDir}/
+  chmod -R 777 ${extPubDir}  
+fi
+if test ! -d ${intPubDir}/system/paypal; then
   if test -L ${intPubDir}; then
     rm ${intPubDir}
   fi
   if test -d ${intPubDir}; then
     rm -rf ${intPubDir}
   fi
-  mkdir -p ${extPubDir}/system/paypal
-  cp -R ${builtPubDir}/* ${extPubDir}/
-  chmod -R 777 ${extPubDir}
   ln -s ${extPubDir} ${intPubDir}
 fi  
 sphinxConf=/extvol/sphinx/production/sphinx.conf
@@ -52,5 +54,7 @@ fi
 if test ! -f ${sphinxConf}; then
   mkdir -p /extvol/sphinx/production/log
   bundle exec rake ts:configure
-fi  
+fi
+rake tmp:cache:clear
+chmod -R 777 /opt/app/tmp
 /usr/bin/supervisord --configuration /sharetribe/etc/supervisord.conf
