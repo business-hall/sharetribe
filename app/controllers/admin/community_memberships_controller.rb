@@ -78,5 +78,8 @@ class Admin::CommunityMembershipsController < Admin::AdminBaseController
       community: @current_community,
       params: params,
       current_user: @current_user)
+    @presenter = Admin::MembershipPresenter.new(
+      service: @service,
+      params: params)
   end
 end

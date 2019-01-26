@@ -1,9 +1,16 @@
 class Admin::MembershipPresenter
   include Collator
 
-  attr_reader :params
+  private
 
-  def initialize(params)
+  attr_reader :service, :params
+
+  public
+
+  delegate :memberships, :community, to: :service, prefix: false, allow_nil: false
+
+  def initialize(service:, params:)
+    @service = service
     @params = params
   end
 
@@ -25,5 +32,23 @@ class Admin::MembershipPresenter
 
   def status_checked?(status)
     params[:status].present? && params[:status].include?(status)
+  end
+
+  def person_name(person)
+    display_name = person.display_name.present? ? " (#{person.display_name})" : ''
+    "#{person.given_name} #{person.family_name}#{display_name}"
+  end
+
+  def can_post_listing(membership)
+    ready = !(membership.pending_consent? || membership.pending_email_confirmation?)
+    if require_verification_to_post_listings
+      membership.can_post_listings && ready
+    else
+      ready
+    end
+  end
+
+  def require_verification_to_post_listings
+    community.require_verification_to_post_listings
   end
 end

@@ -33,7 +33,9 @@ services:
     networks:
       - db
       - redis
-      - sharetribe      
+      - sharetribe   
+    #CURRENT_UID=$(id -u):$(id -g) docker-compose up    
+    #user: ${CURRENT_UID}
     build:
       context: .
       dockerfile: Dockerfile.sharetribe
@@ -42,7 +44,6 @@ services:
       - redis:redis
     volumes:
       - "./data:/extvol"
-      - "./data/sharetribe/public:/opt/app/public"
     depends_on:
       - db
       - redis
