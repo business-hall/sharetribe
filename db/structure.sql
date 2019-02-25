@@ -275,6 +275,12 @@ CREATE TABLE `communities` (
   `footer_copyright` text,
   `footer_enabled` tinyint(1) DEFAULT '0',
   `logo_link` varchar(255) DEFAULT NULL,
+  `google_connect_enabled` tinyint(1) DEFAULT NULL,
+  `google_connect_id` varchar(255) DEFAULT NULL,
+  `google_connect_secret` varchar(255) DEFAULT NULL,
+  `linkedin_connect_enabled` tinyint(1) DEFAULT NULL,
+  `linkedin_connect_id` varchar(255) DEFAULT NULL,
+  `linkedin_connect_secret` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_communities_on_uuid` (`uuid`),
   KEY `index_communities_on_domain` (`domain`) USING BTREE,
@@ -307,6 +313,8 @@ CREATE TABLE `community_customizations` (
   `transaction_agreement_content` mediumtext,
   `social_media_title` varchar(255) DEFAULT NULL,
   `social_media_description` text,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` text,
   PRIMARY KEY (`id`),
   KEY `index_community_customizations_on_community_id` (`community_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1217,6 +1225,8 @@ CREATE TABLE `people` (
   `min_days_between_community_updates` int(11) DEFAULT '1',
   `deleted` tinyint(1) DEFAULT '0',
   `cloned_from` varchar(22) DEFAULT NULL,
+  `google_oauth2_id` varchar(255) DEFAULT NULL,
+  `linkedin_id` varchar(255) DEFAULT NULL,
   UNIQUE KEY `index_people_on_username_and_community_id` (`username`,`community_id`) USING BTREE,
   UNIQUE KEY `index_people_on_uuid` (`uuid`),
   UNIQUE KEY `index_people_on_email` (`email`) USING BTREE,
@@ -1226,7 +1236,11 @@ CREATE TABLE `people` (
   KEY `index_people_on_community_id` (`community_id`) USING BTREE,
   KEY `index_people_on_facebook_id` (`facebook_id`) USING BTREE,
   KEY `index_people_on_id` (`id`) USING BTREE,
-  KEY `index_people_on_username` (`username`) USING BTREE
+  KEY `index_people_on_username` (`username`) USING BTREE,
+  KEY `index_people_on_google_oauth2_id` (`google_oauth2_id`),
+  KEY `index_people_on_community_id_and_google_oauth2_id` (`community_id`,`google_oauth2_id`),
+  KEY `index_people_on_linkedin_id` (`linkedin_id`),
+  KEY `index_people_on_community_id_and_linkedin_id` (`community_id`,`linkedin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
@@ -2323,9 +2337,15 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20181024094615'),
 ('20181106212306'),
 ('20181211125306'),
-('20190104083132'),
 ('20181219090801'),
-('20181211094456'),
 ('20181221120927'),
+('20190208032229'),
+('20190104083132'),
+('20181211094456'),
 ('20190108075512'),
-('20190208032229');
+('20190111072711'),
+('20190111122204'),
+('20190114141250'),
+('20190115083941'),
+('20190121064002');
+

@@ -308,7 +308,7 @@ module ApplicationHelper
     }
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   # Admin view left hand navigation content
   def admin_links_for(community)
     links = [
@@ -421,6 +421,13 @@ module ApplicationHelper
       },
       {
         :topic => :configure,
+        :text => t("admin.communities.domain.domain"),
+        :icon_class => icon_class("domain"),
+        :path => admin_domain_path,
+        :name => "domain"
+      },
+      {
+        :topic => :configure,
         :text => t("admin.communities.new_layout.new_layout"),
         :icon_class => icon_class("layout"),
         :path => admin_new_layout_path,
@@ -513,6 +520,14 @@ module ApplicationHelper
 
     links << {
       :topic => :configure,
+      :text => t("admin.communities.seo_settings.seo"),
+      :icon_class => icon_class("seo"),
+      :path => admin_community_seo_settings_path,
+      :name => "seo"
+    }
+
+    links << {
+      :topic => :configure,
       :text => t("admin.communities.analytics.analytics"),
       :icon_class => icon_class("analytics"),
       :path => analytics_admin_community_path(@current_community),
@@ -543,7 +558,7 @@ module ApplicationHelper
 
     links
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # Settings view left hand navigation content
   def settings_links_for(person, community=nil, restrict_for_admin=false)
@@ -554,18 +569,18 @@ module ApplicationHelper
         :icon_class => icon_class("profile"),
         :path => person_settings_path(person),
         :name => "profile"
-      },
-      {
-        :id => "settings-tab-listings",
-        :text => t("layouts.settings.listings"),
-        :icon_class => icon_class("thumbnails"),
-        :path => listings_person_settings_path(person, sort: "updated"),
-        :name => "listings"
       }
     ]
     unless restrict_for_admin
       links +=
         [
+          {
+            :id => "settings-tab-listings",
+            :text => t("layouts.settings.listings"),
+            :icon_class => icon_class("thumbnails"),
+            :path => listings_person_settings_path(person, sort: "updated"),
+            :name => "listings"
+          },
           {
             :id => "settings-tab-account",
             :text => t("layouts.settings.account"),
@@ -627,14 +642,6 @@ module ApplicationHelper
 
   def self.has_aws_keys?
     APP_CONFIG.aws_access_key_id && APP_CONFIG.aws_secret_access_key
-  end
-
-  def facebook_connect_in_use?
-    community = Maybe(@current_community)
-
-    (APP_CONFIG.fb_connect_id || community.facebook_connect_id.or_else(false)) &&
-     !@facebook_merge &&
-     community.facebook_connect_enabled?.or_else(false)
   end
 
   def community_slogan

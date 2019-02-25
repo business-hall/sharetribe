@@ -271,7 +271,7 @@ pt-BR:
         ban_me_error: "Você não pode se banir."
         search: ~
         search_by_name_email: ~
-        reset_search: ~
+        reset_search: "Mostrar todos"
         for_search_terms: ~
         this_makes_the_user_an_admin: ~
         status_filter:
@@ -324,6 +324,39 @@ pt-BR:
         enable_facebook_login: ~
         save: "Salvar definições"
         add_another_image: ~
+        google_connect: ~
+        google_instructions_link_text: ~
+        google_connect_info_text_with_instructions: ~
+        google_connect_info_text: ~
+        enable_google_login: ~
+        google_connect_id: ~
+        google_connect_secret: ~
+        linkedin_connect: ~
+        linkedin_instructions_link_text: ~
+        linkedin_connect_info_text_with_instructions: ~
+        linkedin_connect_info_text: ~
+        enable_linkedin_login: ~
+        linkedin_connect_id: ~
+        linkedin_connect_secret: ~
+      seo_settings:
+        seo: ~
+        title: ~
+        meta_title_label: ~
+        meta_title_info: ~
+        meta_title_link_text: ~
+        meta_description_label: ~
+        meta_description_info: ~
+        meta_description_link_text: ~
+        sitemap_label: ~
+        sitemap_info: ~
+        sitemap_info_link_text: ~
+        sitemap_info_public: ~
+        sitemap_info_private: ~
+        robots_label: ~
+        robots_info: ~
+        robots_info_link_text: ~
+        robots_info_2: ~
+        save: ~
       analytics:
         analytics: Analytics
         google_analytics_key: "Google Analytics tracking ID"
@@ -374,7 +407,7 @@ pt-BR:
         transactions: "Ver transações"
         search_by_title_parties: ~
         search: ~
-        reset_search: ~
+        reset_search: "Mostrar todos"
         status_filter:
           all: ~
           selected: ~
@@ -444,7 +477,7 @@ pt-BR:
         profile: ~
         search_by_keyword: ~
         search: ~
-        reset_search: ~
+        reset_search: "Mostrar todos"
         for_keyword: ~
       testimonials:
         testimonials: ~
@@ -452,7 +485,7 @@ pt-BR:
         displaying_xx_reviews: ~
         search_keyword: ~
         search: ~
-        reset_search: ~
+        reset_search: "Mostrar todos"
         for_keyword: ~
         headers:
           transaction: ~
@@ -497,26 +530,26 @@ pt-BR:
           used: ~
           date_sent: ~
       listings:
-        listings: ~
-        search_by_title_author_category: ~
-        search: ~
-        reset_search: ~
+        listings: Anúncios
+        search_by_title_author_category: "Buscar um anúncio por título"
+        search: Buscar
+        reset_search: "Mostrar todos"
         status:
-          all: ~
+          all: "Todos os status"
           selected_js: ~
-          open: ~
-          closed: ~
-          expired: ~
+          open: Ativo
+          closed: Encerrado
+          expired: Expirado
         headers:
-          title: ~
+          title: Título
           author: ~
-          created: ~
-          updated: ~
-          category: ~
-          status: ~
-        open: ~
-        closed: ~
-        expired: ~
+          created: "Criado em"
+          updated: "Atualizado em"
+          category: Categoria
+          status: Status
+        open: Ativo
+        closed: Encerrado
+        expired: Expirado
       user_fields:
         user_fields: ~
       footer:
@@ -543,6 +576,16 @@ pt-BR:
         social:
           title: ~
           url: ~
+      domain:
+        domain: ~
+        marketplace_domain: ~
+        offer_pro: ~
+        upgrade_pro_plan_link: ~
+        your_marketplace_address_is: ~
+        would_you_like_to_change_address: ~
+        contact_us: ~
+        you_can_now_use_a_custom_domain: ~
+        would_you_like_to_change_domain: ~
     custom_fields:
       edit:
         edit_listing_field: "Alterar anúncio '%{field_name}'"
@@ -1007,7 +1050,7 @@ pt-BR:
       this_message_is_private: "Esta mensagem é particular entre você e %{person}. %{person} será notificado sobre esta mensagem por e-mail."
       you_will_get_notified_of_acceptance: "Você receberá uma notificação por e-mail quando %{person} aceitar ou rejeitar a sua proposta."
       you_will_get_notified: "Você receberá uma notificação por e-mail quando %{person} responder você."
-      title: Titulo
+      title: Título
       send_message_to_user: "Enviar mensagem para %{person}"
       about_listing: "Sobre o anúncio %{listing_title}"
       author_has_to_accept_request: "%{author_name} precisa aceitar o pedido antes que você possa pagar"
@@ -1632,8 +1675,8 @@ pt-BR:
       comment_sent: "Comentário enviado"
       confirmation_link_is_wrong_or_used: "O link de confirmação já está sendo usado ou está com problemas. Tente fazer o login ou entre em contado conosco se o problema persiste."
       additional_email_confirmed: "O e-mail que você entrou agora está confirmado."
-      could_not_get_email_from_facebook: "Não foi possível obter endereço de e-mail do Facebook e não pode criar uma conta sem e-mail."
-      facebook_email_unconfirmed: "O endereço de email '%{email}' da sua conta no Facebook account já foi aceito mas ainda não foi confirmado. Por favor confirme o endereço de email antes de entrar usando o Facebook."
+      could_not_get_email_from_social_network: ~
+      social_network_email_unconfirmed: ~
       create_new_listing: "Criar um outro anúncio"
       create_one_here: "criar uma aqui"
       email_confirmation_sent_to_new_address: "E-mail de confirmação é agora enviado para o novo endereço."
@@ -1983,7 +2026,7 @@ pt-BR:
       no_image: "Sem imagem"
       no_reviews: "Nenhuma avaliação recebida"
       offer: Oferta
-      listing_created: Criado
+      listing_created: "Criado em"
       open_until: "Válido até %{date}"
       feedback: Feedback
       qr_code: "QR Code"
@@ -2185,7 +2228,7 @@ pt-BR:
       username_is_invalid: "Nome de usuário é inválido. Os caracteres permitidos são letras, números e sublinhado."
       visible_only_to_you: "visível apenas para você e para o administrador do mercado virtual"
       visible_to_everybody: "visível para todos"
-      create_account_with_facebook: "Registre-se com seu Facebook"
+      create_account_with_provider: ~
       OR: OU
       signup_with_email: "Registre-se com seu e-mail"
       this_field_will_be_publicly_visible: ~
@@ -2193,9 +2236,8 @@ pt-BR:
       grade: "nota :"
       and_gave_following_feedback: "deu a opinião seguinte"
     profile_listings:
-      show_also_closed: "Mostar também anúncios invisíveis"
-      show_only_open: "Exibir apenas os abertos"
       no_image: "Sem imagem"
+      manage_listings: "Gerencie todos os meus anúncios"
     show:
       contact: "Contate %{person}"
       about_me: "Sobre mim:"
@@ -2254,7 +2296,7 @@ pt-BR:
       account_creation_link_text: "clique aqui"
       cancle_facebook_connect: "Se você não quiser associar essa conta, você pode %{cancel_link}."
       facebook_cancel_link_text: anular
-      log_in_with_your_facebook_account: "Conectar com o Facebook"
+      log_in_with_your_provider_account: ~
       or_sign_up_with_your_username: "...ou com seu nome de usuário ou e-mail"
       we_will_not_post_without_asking_you: "Nós não publicaremos no Facebook sem a sua permissão."
     password_forgotten:
@@ -2569,6 +2611,7 @@ pt-BR:
       signup: "Criar conta"
       admin_dashboard: "Painel de administração"
       language: Idioma
+      listings: ~
     utils:
       km: km
       mi: mi

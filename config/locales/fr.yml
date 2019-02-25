@@ -215,7 +215,7 @@ fr:
         general: Général
         access: "Paramètres d'accès"
         join_with_invite_only: "Autoriser un utilisateur à s'inscrire uniquement s'il est invité par un autre utilisateur déjà inscrit"
-        users_can_invite_new_users: "Autoriser tous les utilisateurs déjà inscrits, et pas uniquement les administrateur, à inviter d'autres utilisateurs"
+        users_can_invite_new_users: "Autoriser tous les utilisateurs déjà inscrits, et pas uniquement les administrateurs, à inviter d'autres utilisateurs"
         private: "Autoriser uniquement les utilisateurs connectés à voir les annonces et profils (rendre la place de marché privée)"
         require_verification_to_post_listings: "Autoriser uniquement les utilisateurs validés par un administrateur à poster de nouvelles annonces"
         search_preferences: "Paramètres de recherche"
@@ -314,16 +314,49 @@ fr:
         twitter_handle_placeholder: nomtwitter
         invalid_twitter_handle: "Le nom Twitter ne peut contenir qu'au maximum 15 caractères alpha-numériques (lettres A-Z et chiffre 0-9)."
         facebook_connect: "Facebook Login"
-        facebook_connect_info_text: "Pour activer la connexion avec Facebook, créez une application pour votre place de marché sur <a href='https://developers.facebook.com/'>Facebook developers</a>. Ajoutez l'id et la clé secrète de l'application ici."
-        facebook_connect_info_text_with_instructions: "Pour activer la connexion avec Facebook, créez une application pour votre place de marché sur <a href='https://developers.facebook.com/'>Facebook developers</a>. Ajoutez l'id et la clé secrète de l'application ici. %{instructions_link}"
-        facebook_instructions_link_text: "Lire les instructions pour configurer Facebook Connect."
-        facebook_connect_id: "Facebook client id"
-        invalid_facebook_connect_id: "L'id client ne devrait contenir que des chiffres"
-        facebook_connect_secret: "Clé secrète Facebook"
-        invalid_facebook_connect_secret: "La clé secrète ne devrait contenir que des chiffres et des lettre de a à f."
+        facebook_connect_info_text: "Pour activer la connexion avec Facebook, créez une application pour votre place de marché sur <a href='https://developers.facebook.com/'>Facebook Developers</a>. Ajoutez l'ID et la clé secrète de l'application ici."
+        facebook_connect_info_text_with_instructions: "Pour activer la connexion avec Facebook, créez une application pour votre place de marché sur <a href='https://developers.facebook.com/'>Facebook Developers</a>. Ajoutez l'ID et la clé secrète de l'application ici. %{instructions_link}"
+        facebook_instructions_link_text: "Lire les instructions pour configurer Facebook Login."
+        facebook_connect_id: "Facebook App ID"
+        invalid_facebook_connect_id: "L'App ID ne devrait contenir que des chiffres."
+        facebook_connect_secret: "Facebook App Secret"
+        invalid_facebook_connect_secret: "L'App Secret ne devrait contenir que des chiffres et des lettre de a à f."
         enable_facebook_login: "Permettre aux utilisateurs de se connecter avec leur compte Facebook"
         save: "Sauvegarder les paramètres"
         add_another_image: "Ajouter une autre image"
+        google_connect: "Google Sign-In"
+        google_instructions_link_text: "Lire les instructions pour configurer Google Sign-In."
+        google_connect_info_text_with_instructions: "Pour activer la connexion avec Google Sign-In, créez un projet pour votre place de marché dans la <a href='https://developers.google.com/identity/sign-in/web/sign-in'>Google Developers Console</a>. Ajoutez l'ID et la clé secrète du projet ici. %{instructions_link}"
+        google_connect_info_text: "Pour activer la connexion avec Google Sign-In, créez un projet pour votre place de marché dans la <a href='https://developers.google.com/identity/sign-in/web/sign-in'>Google Developers Console</a>. Ajoutez l'ID et la clé secrète du projet ici."
+        enable_google_login: "Permettre aux utilisateurs de se connecter avec leur compte Google"
+        google_connect_id: "Google Client ID"
+        google_connect_secret: "Google Client secret"
+        linkedin_connect: "LinkedIn Sign In"
+        linkedin_instructions_link_text: "Lire les instructions pour configurer LinkedIn Sign In."
+        linkedin_connect_info_text_with_instructions: "Pour activer la connexion avec LinkedIn Sign In, créez une application pour votre place de marché dans le <a href='https://www.linkedin.com/developers/'>LinkedIn Developers Dashboard</a>. Ajoutez l'ID et la clé secrète de l'application ici. %{instructions_link}"
+        linkedin_connect_info_text: "Pour activer la connexion avec LinkedIn Sign In, créez une application pour votre place de marché dans le <a href='https://www.linkedin.com/developers/'>LinkedIn Developers Dashboard</a>. Ajoutez l'ID et la clé secrète de l'application ici."
+        enable_linkedin_login: "Permettre aux utilisateurs de se connecter avec leur compte LinkedIn"
+        linkedin_connect_id: "Linkedin Client ID"
+        linkedin_connect_secret: "LinkedIn Client Secret"
+      seo_settings:
+        seo: SEO
+        title: "Page d'accueil"
+        meta_title_label: "Tag title de la page d'accueil"
+        meta_title_info: "Le contenu de ce tag est suggéré aux moteurs de recherche et affiché comme lien sur leurs pages de résultats. %{link}."
+        meta_title_link_text: "Découvrez-en plus sur les meta tags"
+        meta_description_label: "Tag description de la page d'accueil"
+        meta_description_info: "Le contenu de ce tag est suggéré aux moteurs de recherche et apparaît sous le lien bleu sur les pages de résultats des moteurs de recherche. %{link}"
+        meta_description_link_text: "Découvrez-en plus sur les meta tags"
+        sitemap_label: Sitemap
+        sitemap_info: "Un sitemap est une bonne solution pour informer les moteurs de recherches des pages qui peuvent être indexées sur votre site. %{link}."
+        sitemap_info_link_text: "Découvrez-en plus sur le fichier XML Sitemap"
+        sitemap_info_public: "Un sitemap est automatiquement généré pour votre place de marché : il liste jusqu'à 500 des annonces récentes sur votre site. Vous pouvez accéder à votre sitemap sur %{link}."
+        sitemap_info_private: "Puisque votre place de marché est privée, il n'y a pas de sitemap."
+        robots_label: Robots.txt
+        robots_info: "Le fichier robots.txt est un fichier pour informer les robots web (en général les robots des moteurs de recherche) comment parcourir les pages sur votre site. %{link}."
+        robots_info_link_text: "Découvrez-en plus sur le fichier robots.txt"
+        robots_info_2: "Un fichier robots.txt est automatiquement généré pour votre place de marché. Vous pouvez accéder à votre robots.txt sur %{link}."
+        save: "Sauvegarder les paramètres"
       analytics:
         analytics: Analyses
         google_analytics_key: "Code de suivi Google Analytics"
@@ -543,6 +576,16 @@ fr:
         social:
           title: Titre
           url: URL
+      domain:
+        domain: Domaine
+        marketplace_domain: "Domaine de la place de marché"
+        offer_pro: "Configurez votre propre domaine en %{upgrade_pro_plan_link}."
+        upgrade_pro_plan_link: "vous abonnant à l'offre Pro ou supérieure"
+        your_marketplace_address_is: "L'adresse de votre place de marché est : %{address}"
+        would_you_like_to_change_address: "Souhaitez-vous modifier l'adresse de votre place de marché ? %{contact_us} !"
+        contact_us: Contactez-nous
+        you_can_now_use_a_custom_domain: "Avec votre offre actuelle, vous pouvez dès à présent utiliser votre propre domaine. Configurons le ensemble. %{contact_us} !"
+        would_you_like_to_change_domain: "Souhaitez-vous modifier le domaine de votre place de marché ? %{contact_us} !"
     custom_fields:
       edit:
         edit_listing_field: "Modifier le champ d'annonce '%{field_name}'"
@@ -1638,8 +1681,8 @@ fr:
       comment_sent: "Commentaire envoyé"
       confirmation_link_is_wrong_or_used: "Le lien de confirmation a déjà été utilisé ou est erroné. Essayez de vous connecter ou contactez-nous si le problème persiste."
       additional_email_confirmed: "Votre adresse email est désormais confirmée."
-      could_not_get_email_from_facebook: "Impossible de récupérer l'adresse email depuis Facebook et impossible de créer un compte sans adresse email."
-      facebook_email_unconfirmed: "L'adresse email '%{email}' liée à votre compte Facebook est déjà utilisée mais n'a pas encore été confirmée. Veuillez confirmer cette adresse email avant de vous connecter avec Facebook."
+      could_not_get_email_from_social_network: "Impossible de récupérer l'adresse email depuis %{provider} et de créer un compte sans cet adresse email."
+      social_network_email_unconfirmed: "L'adresse email '%{email}' associée à votre compte %{provider} est déjà utilisée mais n'a pas encore été confirmée. Veuillez confirmer l'adresse email avant de vous connecter avec %{provider}."
       create_new_listing: "Créer une autre annonce"
       create_one_here: "en créer un ici"
       email_confirmation_sent_to_new_address: "Un email de confirmation est envoyé à la nouvelle adresse."
@@ -2189,7 +2232,7 @@ fr:
       username_is_invalid: "Nom d'utilisateur incorrect. Les caractères autorisés sont les lettres, les chiffres et le tiret bas ('_')."
       visible_only_to_you: "visible uniquement par vous et l'équipe %{service_name}"
       visible_to_everybody: "visible à tout le monde"
-      create_account_with_facebook: "S'inscrire avec Facebook"
+      create_account_with_provider: "S'inscrire avec %{provider}"
       OR: OU
       signup_with_email: "S'inscrire avec un email"
       this_field_will_be_publicly_visible: "(Ce champ sera visible à tous)"
@@ -2197,9 +2240,8 @@ fr:
       grade: "note :"
       and_gave_following_feedback: "et a donné l'avis suivant"
     profile_listings:
-      show_also_closed: "Voir également les offres et demandes closes"
-      show_only_open: "Voir uniquement les offres et demandes en cours"
       no_image: "Aucune image"
+      manage_listings: "Gérer toutes mes annonces"
     show:
       contact: "Contacter %{person}"
       about_me: "A propos de moi : "
@@ -2258,7 +2300,7 @@ fr:
       account_creation_link_text: "cliquez ici"
       cancle_facebook_connect: "Si vous ne voulez pas lier ce compte, vous pouvez %{cancel_link}."
       facebook_cancel_link_text: annuler
-      log_in_with_your_facebook_account: "Se connecter avec Facebook"
+      log_in_with_your_provider_account: "Se connecter %{provider}"
       or_sign_up_with_your_username: "...ou avec votre nom d'utilisateur et votre mot de passe : "
       we_will_not_post_without_asking_you: "Nous ne publierons jamais sur Facebook sans votre permission."
     password_forgotten:
@@ -2579,6 +2621,7 @@ fr:
       signup: S'inscrire
       admin_dashboard: "Panneau d'administration"
       language: Langue
+      listings: "Mes annonces"
     utils:
       km: km
       mi: mi
